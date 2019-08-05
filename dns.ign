@@ -1,0 +1,27 @@
+{
+  "ignition": {
+    "config": {
+      "replace": {
+        "source": null,
+        "verification": {}
+      }
+    },
+    "security": {
+      "tls": {}
+    },
+    "timeouts": {},
+    "version": "3.0.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDUNQfEB9pqy3yQ53sJEsczgFBYzP+Lvfrz/wlQ+4iR3yBce9s4ZO8I8GEFfaxbHAJEc5fAx0rhOd4QKC/XHF2KT+nBq/gGXQjvmxgVDzJU6lOLMQhV1WQNo4xaBmoN5VKSWWuB+Jv3ipF28WzhbBHQZ8BqCZEo9h+M4olmlN+XZnrcrXwU4ct9VPsy77yVI134HVJGiHLrlXUUvgJ0Bdh32C1RCYSgyo5zzgtxU24ldFiqSYSCqwJ+EQWE0ejnY1oNFU2A0KGtSrzmKfrus2xbxPfgAVZqJSJw5PId9DknsbAIW4Wv1xPG+UsbIboKn7anDffmHLYr6Qwal3DjW2nt/j9MsQhyzWw4rh+PKQFI/e9A3g8a0gTnV/4cpFIgeX8wWfomGKE0zXnZaIORLWCwz+z5fYtFT5d5JipNctnjEQObk1wX5sRroYfPGG012cCcY8nQN4WSUul/SCTrfC9EGozb4FwUc5IknL9OfOF5jYDeU15rQkeIdDRXQiwvmEl6vDwzgo3ZwBT5ha8uw2RP7Z3nE67zGCiO5QgBBLoU28fHeBbPPeB09yv9oX3d9gkxcYXdWjSsT9nUzTtcdMFfG29YAhnXkqPrzl2npaL8v3EbkDLmNA8bm7EKLHPJoJTMcqVN3HAtX5ACbaqQtAyNJbyxHTerOAQHeR6YdssirQ== claudio.walser@srf.ch"
+        ]
+      }
+    ]
+  },
+  "storage": {},
+  "systemd": {}
+}
