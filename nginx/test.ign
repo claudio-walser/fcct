@@ -1,0 +1,26 @@
+{
+  "ignition": {
+    "config": {
+      "replace": {
+        "source": null,
+        "verification": {}
+      }
+    },
+    "security": {
+      "tls": {}
+    },
+    "timeouts": {},
+    "version": "3.0.0"
+  },
+  "passwd": {},
+  "storage": {},
+  "systemd": {
+    "units": [
+      {
+        "contents": "[Unit]\nDescription=A hello world unit!\n[Service]\nType=oneshot\nExecStart=/usr/bin/echo \"Hello, World!\"\n[Install]\nWantedBy=multi-user.target",
+        "enabled": true,
+        "name": "hello.service"
+      }
+    ]
+  }
+}

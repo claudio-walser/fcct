@@ -1,0 +1,14 @@
+variant: fcos
+version: 1.0.0
+systemd:
+  units:
+    - name: hello.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=A hello world unit!
+        [Service]
+        Type=oneshot
+        ExecStart=/usr/bin/echo "Hello, World!"
+        [Install]
+        WantedBy=multi-user.target

@@ -1,0 +1,56 @@
+{
+  "ignition": {
+    "config": {
+      "replace": {
+        "source": null,
+        "verification": {}
+      }
+    },
+    "security": {
+      "tls": {}
+    },
+    "timeouts": {},
+    "version": "3.0.0"
+  },
+  "passwd": {
+    "groups": [
+      {
+        "name": "ssh"
+      }
+    ],
+    "users": [
+      {
+        "groups": [
+          "ssh"
+        ],
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDUNQfEB9pqy3yQ53sJEsczgFBYzP+Lvfrz/wlQ+4iR3yBce9s4ZO8I8GEFfaxbHAJEc5fAx0rhOd4QKC/XHF2KT+nBq/gGXQjvmxgVDzJU6lOLMQhV1WQNo4xaBmoN5VKSWWuB+Jv3ipF28WzhbBHQZ8BqCZEo9h+M4olmlN+XZnrcrXwU4ct9VPsy77yVI134HVJGiHLrlXUUvgJ0Bdh32C1RCYSgyo5zzgtxU24ldFiqSYSCqwJ+EQWE0ejnY1oNFU2A0KGtSrzmKfrus2xbxPfgAVZqJSJw5PId9DknsbAIW4Wv1xPG+UsbIboKn7anDffmHLYr6Qwal3DjW2nt/j9MsQhyzWw4rh+PKQFI/e9A3g8a0gTnV/4cpFIgeX8wWfomGKE0zXnZaIORLWCwz+z5fYtFT5d5JipNctnjEQObk1wX5sRroYfPGG012cCcY8nQN4WSUul/SCTrfC9EGozb4FwUc5IknL9OfOF5jYDeU15rQkeIdDRXQiwvmEl6vDwzgo3ZwBT5ha8uw2RP7Z3nE67zGCiO5QgBBLoU28fHeBbPPeB09yv9oX3d9gkxcYXdWjSsT9nUzTtcdMFfG29YAhnXkqPrzl2npaL8v3EbkDLmNA8bm7EKLHPJoJTMcqVN3HAtX5ACbaqQtAyNJbyxHTerOAQHeR6YdssirQ== claudio.walser@srf.ch"
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "files": [
+      {
+        "group": {},
+        "path": "/etc/hostname",
+        "user": {},
+        "contents": {
+          "source": "data:,master-1",
+          "verification": {}
+        },
+        "mode": 420
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "contents": "[Unit]\nDescription=keepalived in a Container\nAfter=haproxy.service\nRequires=haproxy.service\n\n[Service]\nTimeoutStartSec=0\nRestart=always\nUser=claudio\nGroup=claudio\nEnvironmentFile=/etc/env\nExecStartPre=-/usr/bin/docker rm -f keepalived-serv\nExecStartPre=-/usr/bin/docker pull arcts/keepalived:latest\nExecStart=/usr/bin/docker run                     \\\n    --net=host                                    \\\n    --cap-add NET_ADMIN                         \\\n    -e KEEPALIVED_AUTOCONF=true                    \\\n    -e KEEPALIVED_STATE=MASTER                    \\\n    -e KEEPALIVED_INTERFACE=${SERV_KEEPALIVED_INTERFACE}\\\n    -e KEEPALIVED_VIRTUAL_ROUTER_ID=${SERV_KEEPALIVED_ID}            \\\n    -e KEEPALIVED_UNICAST_SRC_IP=${SERV_KEEPALIVED_SRC}\\\n    -e KEEPALIVED_UNICAST_PEER_0=${SERV_KEEPALIVED_PEER_0}\\\n    -e KEEPALIVED_UNICAST_PEER_1=${SERV_KEEPALIVED_PEER_1}\\\n    -e KEEPALIVED_TRACK_INTERFACE_1=${SERV_KEEPALIVED_INTERFACE}\\\n    -e KEEPALIVED_VIRTUAL_IPADDRESS_1=\\\"${SERV_KEEPALIVED_VIP}/24 dev ${SERV_KEEPALIVED_INTERFACE}\\\" \\\n    --name keepalived-serv                            \\\n    arcts/keepalived:latest\nExecStop=/usr/bin/docker stop keepalived-serv\n\n[Install]\nWantedBy=multi-user.target\n",
+        "enabled": true,
+        "name": "hello.service"
+      }
+    ]
+  }
+}

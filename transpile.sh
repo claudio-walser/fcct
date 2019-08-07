@@ -1,3 +1,7 @@
 #!/bin/bash
 
-docker run --rm -v $(pwd):/srv quay.io/coreos/fcct:latest -input /srv/dns.fcc -output /srv/dns.ign -pretty -strict
+ROLE=$1 || 'dns'
+
+docker run --rm -v $(pwd):/srv quay.io/coreos/fcct:latest -input /srv/${ROLE}.fcc -output /srv/${ROLE}.ign -pretty -strict
+
+mv ${ROLE}.ign nginx/
